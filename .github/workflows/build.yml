@@ -1,0 +1,16 @@
+name: Build and AQI checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install platformio==6.2.0
+      - run: cp include/secrets.h.example include/secrets.h
+      - run: pio run
+      - run: c++ -std=c++11 -Wall -Wextra -pedantic -Iinclude tests/test_india_aqi.cpp -o /tmp/agritech-aqi-test && /tmp/agritech-aqi-test

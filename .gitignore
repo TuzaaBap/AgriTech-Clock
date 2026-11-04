@@ -1,0 +1,11 @@
+.pio/
+backups/
+include/secrets.h
+include/build_time.h
+*.bin
+*.elf
+*.log
+.DS_Store
+__pycache__/
+.vscode/*
+!.vscode/extensions.json

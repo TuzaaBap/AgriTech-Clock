@@ -1,0 +1,10 @@
+# Credits and data attribution
+
+- Hardware mapping and WF1 programming references: [mrcodetastic/HD-WF1-WF2-LED-MatrixPanel-DMA](https://github.com/mrcodetastic/HD-WF1-WF2-LED-MatrixPanel-DMA), commit cee182159dc6b2c08fd088ca068f8ea58af79b88, GPL-3.0. No upstream photographs are bundled here.
+- Display dependency: [ESP32-HUB75-MatrixPanel-DMA](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA), pinned commit 6c7fc1e325cf2b1e5ca817ca4a07b45620aa63e9, MIT license.
+- [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library), [Adafruit BusIO](https://github.com/adafruit/Adafruit_BusIO), [ArduinoJson](https://arduinojson.org/) and [Arduino-ESP32](https://github.com/espressif/arduino-esp32) retain their respective dependency licenses. PlatformIO downloads them separately; they are not vendored in this repository.
+- Weather data: [Open-Meteo weather API](https://open-meteo.com/en/docs). Air quality: [Open-Meteo air quality API](https://open-meteo.com/en/docs/air-quality-api), based on Copernicus Atmosphere Monitoring Service (CAMS) data. Data use must follow provider attribution and service terms; key-free access is not a promise of unlimited or commercial service.
+- Indian AQI breakpoints and coverage rules: [CPCB National AQI report](https://airquality.cpcb.gov.in/ccr_docs/FINAL-REPORT_AQI_.pdf) and [About AQI](https://www.airquality.cpcb.gov.in/ccr_docs/About_AQI.pdf). The project's model-derived estimate is not a CPCB station publication.
+- Hardware photographs: supplied by the AgriTech Clock project owner for this public documentation; included under the repository license.
+
+Project source and documentation: Copyright (c) 2026 AgriTech Clock contributors. Licensed GPL-3.0-only; see LICENSE. Referenced projects and services are not affiliated with this project.

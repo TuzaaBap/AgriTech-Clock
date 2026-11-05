@@ -1,3 +1,5 @@
+![AgriTech Clock displaying AGRITECH on the three-panel RGB LED display](docs/photos/agritech-clock-display.png)
+
 # AgriTech Clock
 
 An ESP32-S2 weather clock for the AgriTech club at MITWPU Pune, running on a Huidu WF1 controller and three P10 RGB LED panels.

@@ -43,16 +43,37 @@ Disconnect USB, external power and the coin cell before continuity measurements.
 
 Common USB colors are red = VBUS, black = GND, green = D+, white = D−, but cable colors do not prove function. In particular, a USB-to-serial cable can use similar colors for UART signals. Do not connect cables by matching colors between these photos.
 
-## UART alternative: a 3.3 V logic USB-to-serial adapter
+## UART alternative: CP2102 USB-to-serial programmer
 
-| Adapter | WF1 |
+Use a CP2102 adapter with **3.3 V UART logic**. Connect the CP2102's USB socket to the computer and wire its serial pins to these WF1 pads:
+
+![WF1 UART close-up: red marks board RX for programmer TXD; green marks board TX for programmer RXD](photos/wf1-uart-cp2102.png)
+
+In the close-up **as oriented above**, the red box marks **board RX** (left, beside the battery), and the green box marks **board TX** (right, below C17). The boxes identify solder pads, not components to remove. The image's “FDTI” text refers to a USB-to-UART programmer; the same crossed TX/RX connections apply to a CP2102.
+
+| CP2102 adapter pin | Connect to WF1 |
 | --- | --- |
-| TXD | Labeled RX pad beside battery |
-| RXD | Labeled TX pad beside battery |
-| GND | Labeled GND terminal |
-| VCC / 5V / 3V3 | Unconnected when externally powered |
+| **TXD / TX** | **RX — red-boxed pad** in the close-up |
+| **RXD / RX** | **TX — green-boxed pad** in the close-up |
+| **GND** | **Labeled GND screw terminal** (the external supply's negative/common ground) |
+| **VCC / 5V / 3V3** | **Leave disconnected** while the WF1 uses its external 5 V supply |
+| **DTR / RTS**, if exposed | Leave disconnected for this manual boot procedure |
 
-Use **3.3 V UART logic**, not RS-232 voltage levels. Verify the adapter's TX level; a power-voltage jumper does not always change its signal voltage. Follow the printed RX/TX labels in the component-side photo. Never apply adapter VCC to RX or TX. UART flashing still needs ROM download mode.
+The CP2102 USB connection powers the adapter; the external 5 V supply powers the WF1 and panels. Share GND between them. Verify the adapter's TX logic level before connecting it: a 3V3/5V power pin or jumper does not necessarily change UART signal voltage. Never apply 5 V to board RX/TX. USB D+/D− are separate signals and are not used for this UART connection.
+
+Solder with USB and external power disconnected, inspect for bridges, then insulate and strain-relieve the wires. Use pad labels and the photo rather than wire colors.
+
+For UART flashing, enter [P13/H2 ROM download mode](FLASHING.md#enter-rom-download-mode) with both power sources fully disconnected first, then reconnect with the boot bridge in place. Select the **CP2102 adapter's serial port**, not a native USB port:
+
+```sh
+pio device list
+# macOS example only; substitute the actual CP2102 port.
+pio run -t upload --upload-port /dev/cu.SLAB_USBtoUART
+```
+
+Other CP2102 port names include `/dev/cu.usbserial...` on macOS, `/dev/ttyUSB0` on Linux or `COM3` on Windows. Wait for hash verification. Remove the boot bridge with power off and restart normally. The build's application diagnostics use **native USB CDC**; the CP2102 is the ROM flashing connection and will not automatically receive those application logs. Use the native USB data connection for the serial diagnostics described in the flashing guide.
+
+Photo reference: [mrcodetastic's annotated WF1 UART pads](https://github.com/mrcodetastic/HD-WF1-WF2-LED-MatrixPanel-DMA/blob/cee182159dc6b2c08fd088ca068f8ea58af79b88/wf1_pcb_pins_2.jpg), supplied here by the project owner; upstream GPL-3.0. See [credits](../CREDITS.md).
 
 ## HUB75 GPIO map
 
